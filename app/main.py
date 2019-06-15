@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from app.config import settings
 from app.routes.documents import router as doc_router
+from app.routes.projects import router as proj_router
 
 app = FastAPI(
     title="KumoVault API",
@@ -9,6 +10,7 @@ app = FastAPI(
 )
 
 app.include_router(doc_router)
+app.include_router(proj_router)
 
 @app.get("/")
 async def root():
