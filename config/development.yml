@@ -1,0 +1,18 @@
+# KumoVault Local Development Configuration
+# Environment: local-dev
+version: "1.0"
+
+server:
+  host: "127.0.0.1"
+  port: 8080
+  workers: 1
+  reload: true
+
+storage:
+  backend: "filesystem"
+  path: "./data/storage"
+  max_size_mb: 25
+
+logging:
+  level: "DEBUG"
+  format: "console"
