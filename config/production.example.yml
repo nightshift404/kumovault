@@ -1,0 +1,27 @@
+# KumoVault Production Configuration Template
+# Environment: internal-production
+version: "1.0"
+
+server:
+  host: "0.0.0.0"
+  port: 8080
+  workers: 4
+  reload: false
+
+database:
+  driver: "postgresql"
+  host: "postgres-primary.infra.kumosec.example"
+  port: 5432
+  name: "kumovault_prod"
+  user: "kv_app"
+  pool_size: 10
+  max_overflow: 20
+
+storage:
+  backend: "filesystem"
+  path: "/var/lib/kumovault/data"
+  max_size_mb: 50
+
+security:
+  session_timeout_minutes: 480
+  require_tls: true
