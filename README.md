@@ -1,19 +1,21 @@
 # KumoVault
 
-Internal document coordination service for KumoSec engineering teams.
+Internal workspace service for document synchronization and project coordination across
+KumoSec distributed engineering teams.
 
 ## Overview
-KumoVault is an internal service under active development to coordinate project
-documentation, architectural notes, and internal specifications across distributed
-engineering teams.
+KumoVault provides centralized, access-controlled workspace storage for technical
+specifications, architectural decision records (ADRs), and internal project documentation.
 
-## Development Setup
-```bash
-python3 -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
-python -m app.main
-```
+## Architecture
+- **API Engine:** Python FastAPI with asynchronous request dispatch
+- **Data Store:** PostgreSQL for workspace metadata and SQLite for local development
+- **Storage Subsystem:** Chunked document engine with SHA-256 verification
+- **Deployment:** Containerized multi-stage Docker builds
 
-## Status
-Prototype phase (v0.1-alpha).
+## Deployment
+Refer to `docs/deployment.md` for production container deployment instructions.
+Operational checks are detailed in `docs/operations.md`.
+
+## License
+Copyright (c) 2019-2020 KumoSec Technologies Inc. Licensed under the Apache License 2.0.
