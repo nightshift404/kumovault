@@ -12,8 +12,18 @@ services:
     environment:
       - KV_ENV=production
       - KV_STORAGE_PATH=/var/lib/kumovault/data
+      - REDIS_HOST=redis-cache
     volumes:
       - kv_data:/var/lib/kumovault/data
+    depends_on:
+      - redis-cache
+    networks:
+      - internal-net
+
+  redis-cache:
+    image: redis:6.2-alpine
+    container_name: kumovault-redis
+    restart: unless-stopped
     networks:
       - internal-net
 
