@@ -1,12 +1,15 @@
 import os
 import hashlib
+import threading
 from pathlib import Path
-from typing import Optional, Tuple
+from typing import Optional, Tuple, Dict
 
 class DocumentStorageService:
     def __init__(self, base_path: str):
         self.base_path = Path(base_path)
         self.base_path.mkdir(parents=True, exist_ok=True)
+        self._lock = threading.Lock()
+        self._doc_locks: Dict[str, str] = {}
 
     def _resolve_path(self, project_key: str, doc_path: str) -> Path:
         clean_path = doc_path.lstrip("/")
@@ -20,8 +23,9 @@ class DocumentStorageService:
         target.parent.mkdir(parents=True, exist_ok=True)
         content_bytes = content.encode("utf-8")
         sha256 = hashlib.sha256(content_bytes).hexdigest()
-        with open(target, "wb") as f:
-            f.write(content_bytes)
+        with self._lock:
+            with open(target, "wb") as f:
+                f.write(content_bytes)
         return len(content_bytes), sha256
 
     def read_document(self, project_key: str, doc_path: str) -> Optional[str]:
@@ -31,9 +35,18 @@ class DocumentStorageService:
         with open(target, "r", encoding="utf-8") as f:
             return f.read()
 
-    def delete_document(self, project_key: str, doc_path: str) -> bool:
-        target = self._resolve_path(project_key, doc_path)
-        if target.exists():
-            target.unlink()
+    def acquire_lock(self, project_key: str, doc_path: str, user: str) -> bool:
+        key = f"{project_key}:{doc_path}"
+        with self._lock:
+            if key in self._doc_locks and self._doc_locks[key] != user:
+                return False
+            self._doc_locks[key] = user
             return True
-        return False
+
+    def release_lock(self, project_key: str, doc_path: str, user: str) -> bool:
+        key = f"{project_key}:{doc_path}"
+        with self._lock:
+            if key in self._doc_locks and self._doc_locks[key] == user:
+                del self._doc_locks[key]
+                return True
+            return False
