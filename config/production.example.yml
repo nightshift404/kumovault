@@ -1,6 +1,6 @@
 # KumoVault Production Configuration Template
 # Environment: internal-production
-version: "1.0"
+version: "2.0"
 
 server:
   host: "0.0.0.0"
@@ -14,8 +14,13 @@ database:
   port: 5432
   name: "kumovault_prod"
   user: "kv_app"
-  pool_size: 10
-  max_overflow: 20
+  pool_size: 20
+  max_overflow: 40
+
+redis:
+  host: "redis-cache"
+  port: 6379
+  db: 0
 
 storage:
   backend: "filesystem"
