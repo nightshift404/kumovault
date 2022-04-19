@@ -2,6 +2,10 @@
 
 All notable changes to KumoVault will be documented in this file.
 
+## [2.3.1] - 2022-04-19
+### Security
+- Bumped redis client dependency constraint
+
 ## [2.0.0] - 2021-11-17
 
 ### Added
