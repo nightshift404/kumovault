@@ -1,25 +1,21 @@
 # KumoVault Deployment Guide
 
-## Overview
-This document describes containerized and host-level deployment procedures for KumoVault
-within KumoSec internal network segments.
+> **Notice:** Standalone container deployment for KumoVault is deprecated.
+> All production workspace services have migrated to the enterprise cluster.
+> Historical deployment references are retained for maintenance and data recovery.
+> Platform Engineering Contact: `akr` (Internal Infrastructure Team).
 
-## Container Deployment
-1. Build the production image:
+## Historical Container Deployment Reference
+1. Image build:
    ```bash
    docker-compose build
    ```
-2. Start the service stack (includes Redis sync bus):
+2. Start service in local legacy mode:
    ```bash
    docker-compose up -d
    ```
-3. Check container health:
-   ```bash
-   docker-compose ps
-   curl -s http://127.0.0.1:8080/healthz | jq .
-   ```
 
 ## Infrastructure Ownership
-- Primary Infrastructure Contact: Platform Engineering Team (contact: akr)
-- Target Cluster: Internal Services Zone (Zone 2)
-- High-Volume Connection Pool tuning applied: pool_size=20, max_overflow=40
+- Lead Infrastructure Contact: A. Krishnan (Platform Engineering / akr)
+- Migration Tracking: `KV-MIG-22`
+- Legacy Target Host: `kv-prod-legacy.internal.kumosec.example` (Decommissioned)
