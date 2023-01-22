@@ -1,24 +1,36 @@
 # KumoVault
 
-Internal workspace service for document synchronization and project coordination across
-KumoSec distributed engineering teams.
+> **Project Status: Archived**
+> KumoVault is no longer under active development. This repository has been archived
+> following the platform migration completed in Q4 2022. For historical documentation
+> and export utilities, refer to the `docs/` and `scripts/` directories.
+> For infrastructure inquiries regarding legacy archives, contact the Platform Engineering team.
 
 ## Overview
-KumoVault provides centralized, access-controlled workspace storage for technical
-specifications, architectural decision records (ADRs), and internal project documentation.
-Version 2.0 introduces multi-node synchronization with distributed locking and Redis
-event streaming.
+KumoVault is an internal document coordination and project workspace service developed
+by KumoSec Technologies for distributed engineering teams. The service provides
+workspace-based document storage, project metadata management, and document synchronization
+across internal environments.
 
-## Architecture
-- **API Engine:** Python FastAPI with asynchronous request dispatch
-- **Data Store:** PostgreSQL for metadata and SQLite for local development
-- **Cache / Event Bus:** Redis 6.2 for sync event distribution
-- **Storage Subsystem:** Chunked document engine with SHA-256 verification
+## Repository Contents
+- `app/`: FastAPI application source code (models, routes, and storage services)
+- `config/`: Configuration templates for development and historical deployments
+- `docs/`: System architecture, deployment notes, and migration runbook
+- `scripts/`: Workspace bootstrap and data export tools
+- `tests/`: Test suite for document and sync validation
+
+## Historical Architecture
+- **Language / Framework:** Python 3 (FastAPI)
+- **Primary Data Store:** PostgreSQL / SQLite
+- **Storage Subsystem:** Local volume mount with SHA-256 integrity checks
+- **Service Lifetime:** 2019 - 2022
 
 ## Documentation
-- `docs/architecture.md`: System layout and data flow
-- `docs/deployment.md`: Container deployment and infrastructure contacts
-- `docs/operations.md`: Health monitoring and operational runbooks
+- [System Architecture](docs/architecture.md)
+- [Deployment History](docs/deployment.md)
+- [Migration Runbook](docs/migration.md)
+- [Operations Guide](docs/operations.md)
 
 ## License
-Copyright (c) 2019-2021 KumoSec Technologies Inc. Licensed under Apache 2.0.
+Copyright (c) 2019-2023 KumoSec Technologies Inc.
+Licensed under the Apache License, Version 2.0.
